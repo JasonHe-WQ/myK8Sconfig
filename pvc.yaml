@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-pv-claim
+spec:
+  storageClassName: local-storage # 与PV中的storageClassName一致
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+#删除pod后手动删除pvc和pv

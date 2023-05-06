@@ -1,0 +1,59 @@
+# 为 StatefulSet 成员提供稳定的 DNS 表项的无头服务（Headless Service）
+apiVersion: v1
+kind: Service
+metadata:
+  #重要！这里的名字要跟后面StatefulSet里ServiceName一致
+  name: db
+  labels:
+    app: database
+spec:
+#  type: ClusterIP
+  ports:
+  - name: mysql
+    port: 3306
+  # 设置Headless Service
+  clusterIP: None
+  selector:
+    app: mysql
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql # 必须匹配 .spec.template.metadata.labels
+  serviceName: db  #重要！这里的名字要跟Service中metadata.name匹配
+  replicas: 3 # 默认值是 1
+  minReadySeconds: 10 # 默认值是 0
+  template:
+    metadata:
+      labels:
+        app: mysql # 必须匹配 .spec.selector.matchLabels
+    spec:
+      tolerations:
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: mysql
+          image: mysql:5.7
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "123456"
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-data
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: local-path
+        resources:
+          requests:
+            storage: 2Gi

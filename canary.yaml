@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-canary
+  namespace: dev
+  labels:
+    app: nginx-deployment-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels: # 跟template.metadata.labels一致
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+        track: canary
+    spec:
+      containers:
+        - name: new-nginx
+          image: docker/getting-started
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+              
