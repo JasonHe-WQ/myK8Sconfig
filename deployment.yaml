@@ -15,7 +15,7 @@ spec:
       labels:
         app: myapp
     spec:
-      restartPolicy: OnFailure:4
+      restartPolicy: OnFailure
       containers:
       - name: myapp
         env:

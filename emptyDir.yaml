@@ -19,5 +19,5 @@ spec:
   volumes:
   - name: redis-storage
     emptyDir: {}
-    medium: 'Memory'
+#    medium: 'Memory'
     

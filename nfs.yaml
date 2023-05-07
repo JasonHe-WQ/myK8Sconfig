@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-1g-pv
+
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  capacity:
+    storage: 1Gi
+  nfs:
+    path: /tmp/nfs/1g-pv
+    server: 192.168.10.208
+
+# server
+# sudo apt -y install nfs-kernel-server
+# sudo mkdir -p /tmp/nfs
+#  /tmp/nfs 192.168.10.0/24(rw,sync,no_subtree_check,no_root_squash,insecure)
+# sudo exportfs -rav
+# sudo systemctl start  nfs-server
+# sudo systemctl enable nfs-server
+# sudo systemctl status nfs-server
+
+# client
+# sudo apt -y install nfs-common
+# showmount -e 127.0.0.1
+# sudo mount -t nfs 192.168.10.208:/tmp/nfs /tmp/test

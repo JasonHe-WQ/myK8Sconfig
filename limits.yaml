@@ -24,6 +24,20 @@ spec:
     volumeMounts:
     - name: ephemeral
       mountPath: "/tmp"
+    startupProbe:
+        exec:
+            command:
+            - ls
+            - /tmp/healthy
+        initialDelaySeconds: 10
+        periodSeconds: 10
+    livenessProbe:
+      tcpSocket:
+        port: 8080
+    readinessProbe:
+        httpGet:
+            path: /ready
+            port: 8080
   volumes:
     - name: ephemeral
       emptyDir:

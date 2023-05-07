@@ -17,7 +17,7 @@ spec:
   volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
+  persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage #通过指定存储类来设置卷的类型
   local:
     path: /mnt/disks/ssd1   #需要手动创建目录

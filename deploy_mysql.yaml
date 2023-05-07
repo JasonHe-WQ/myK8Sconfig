@@ -5,7 +5,7 @@ metadata:
   labels:
     app: mysql
 spec:
-
+  
   containers:
     - name: mysql
       image: mysql:5.7
@@ -19,6 +19,9 @@ spec:
           name: conf-volume
           readOnly: true
       resources:
+        requests:
+            cpu: '250m'
+            memory: '64Mi'
         limits:
             cpu: '500m'
             memory: '256m'
@@ -29,7 +32,7 @@ spec:
         name: mysql-config
     - name: data-volume
       persistentVolumeClaim:
-        claimName: mysql-pv-claim
+        claimName: mysql-pv-claim # 与PVC中的metadata.name一致
 # Compare this snippet from mysql.yaml:
 #      hostPath:
 #        # directory location on host
