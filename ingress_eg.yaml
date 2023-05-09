@@ -1,17 +1,28 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ngx-ing
+  name: cafe-ingress
 spec:
-  ingressClassName: ngx-ink
+  ingressClassName: <ingress-class-name>
+  tls:
+    - hosts:
+        - cafe.example.com
+      secretName: cafe-secret
   rules:
-    - host: ngx.test
+    - host: cafe.example.com
       http:
         paths:
-          - path: /
-            pathType: Exact
+          - path: /tea
+            pathType: Prefix
             backend:
               service:
-                name: ngx-svc
+                name: tea-svc
+                port:
+                  number: 80
+          - path: /coffee
+            pathType: Prefix
+            backend:
+              service:
+                name: coffee-svc
                 port:
                   number: 80

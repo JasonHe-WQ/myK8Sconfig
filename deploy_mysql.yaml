@@ -5,10 +5,14 @@ metadata:
   labels:
     app: mysql
 spec:
-  
+
   containers:
     - name: mysql
-      image: mysql:5.7
+      image: mysql
+      lifecycle:
+        postStart:
+          exec:
+            command: ["/bin/sh", "-c", "echo 'CREATE DATABASE IF NOT EXISTS test;' | mysql -uroot -p123456"]
       env:
         - name: MYSQL_ROOT_PASSWORD
           value: "123456"
