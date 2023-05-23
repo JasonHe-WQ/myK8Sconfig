@@ -16,8 +16,10 @@ spec:
 # server
 # sudo apt -y install nfs-kernel-server
 # sudo mkdir -p /tmp/nfs
+# sudo vim /etc/exports 
 #  /tmp/nfs 192.168.10.0/24(rw,sync,no_subtree_check,no_root_squash,insecure)
-# sudo exportfs -rav
+# sudo service rpcbind start  默认会在NFS启动时自动启动rpcbind服务
+# sudo exportfs -rav 重新加载配置文件
 # sudo systemctl start  nfs-server
 # sudo systemctl enable nfs-server
 # sudo systemctl status nfs-server
