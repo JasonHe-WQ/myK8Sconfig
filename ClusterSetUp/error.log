@@ -1,0 +1,2 @@
+W0815 11:56:16.929168   38690 utils.go:69] The recommended value for "clusterCIDR" in "KubeProxyConfiguration" is: 10.244.0.0/16; the provided value is: 10.141.15.181/24
+W0815 11:56:16.929344   38690 validation.go:79] WARNING: certificateValidityPeriod: the value 87600h0m0s is more than the recommended default for certificate expiration: 8760h0m0s
