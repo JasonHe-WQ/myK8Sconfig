@@ -11,10 +11,9 @@ spec:
     - name: default-ipv4-ippool
       blockSize: 26
       cidr: 10.244.0.0/16 #  This is the pod subnet
-      encapsulation: None
+      encapsulation: VXLANCrossSubnet
       natOutgoing: Enabled
       nodeSelector: all()
-    nodeToNodeMeshEnabled: true
 ---
 
 # This section configures the Calico API server.
