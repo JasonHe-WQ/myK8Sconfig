@@ -67,3 +67,5 @@ systemReserved:
   memory: "1Gi"    # 为系统预留1GiB内存
 evictionHard:
   memory.available: "200Mi"  # 设置内存驱逐硬阈值
+serializeImagePulls: false
+rotateCertificates: true
